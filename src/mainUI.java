@@ -1,9 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class mainUI extends  JFrame{
 
-    private page context;
+    private JList list1;
+    private JLabel createCharacterLabel;
+    private JTextField nameTextField;
+    private JList listClass;
+    private JButton createCharacterButton;
+    private JPanel mainPanel;
+    private JLabel ErrorLabel;
 
     public mainUI() {
         //Creating the main window of the application
@@ -19,22 +27,15 @@ public class mainUI extends  JFrame{
 
         //End the process if we close the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Set the listCharacter context
-        this.setListCharacterContext();
-
         //Actually display the window
         this.setVisible(true);
     }
 
-    //Method called when you
-    private void emptyWindow() {
-        this.getContentPane().removeAll();
+    private void createUIComponents() {
     }
 
-    private void setListCharacterContext() {
-        this.context = new listCharacterPage();
-        this.setContentPane(this.context.getPanel());
+    public void setListCharacterContext() {
+        setContentPane(mainPanel);
     }
 
 }
