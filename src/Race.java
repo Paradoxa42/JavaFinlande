@@ -1,10 +1,23 @@
 import java.util.HashMap;
 
 public class Race {
+    private int id = 0;
     private String name = new String();
     private caracSet set;
     private String capacityName = new String();
     private String capacity = new String();
+
+    public Race() {
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -12,6 +25,10 @@ public class Race {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setSet(caracSet set) {
+        this.set = set;
     }
 
     public void setSet(String json_set) {

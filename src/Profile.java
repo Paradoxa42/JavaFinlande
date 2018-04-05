@@ -4,13 +4,22 @@ import java.util.Vector;
 
 public class Profile {
 
+    private int id = 0;
     private String name = "";
     private int hDice = 6;
     private String startEquipement = "Nothing";
-    private Vector<Number> path = new Vector<Number>();
+    private Vector<Integer> path = new Vector<Integer>();
     private JSONArray path_json;
 
     public Profile() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setName(String name) {
@@ -37,7 +46,7 @@ public class Profile {
         this.startEquipement = startEquipement;
     }
 
-    public Vector<Number> getPath() {
+    public Vector<Integer> getPath() {
         return path;
     }
 
@@ -46,7 +55,15 @@ public class Profile {
     }
 
     public void setPath(String json_path) {
-        JSONArray json_tmp = new JSONArray(json_path);
-        this.path_json = json_tmp;
+        this.path_json = new JSONArray(json_path);
+        for (int i = 0; i < this.path_json.length(); i++) {
+            this.path.add(this.path_json.getInt(i));
+        }
     }
+
+    public int calculateHealth (int level) {
+        return level * this.hDice;
+    }
+
+
 }
