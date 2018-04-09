@@ -8,10 +8,19 @@ public class mainUI extends  JFrame{
     private JList list1;
     private JLabel createCharacterLabel;
     private JTextField nameTextField;
-    private JList listClass;
-    private JButton createCharacterButton;
     private JPanel mainPanel;
-    private JLabel ErrorLabel;
+    private JButton AddCharacterButton;
+    private JComboBox RaceSelect;
+    private JComboBox ProfileSelect;
+    private JSpinner Strspinner;
+    private JSpinner Dexspinner;
+    private JSpinner Conspinner;
+    private JSpinner Intelspinner;
+    private JSpinner Wisspinner;
+    private JSpinner Chaspinner;
+    private JList pathList;
+    private JButton createCharacterButton;
+    private JButton MakeSheet;
 
     public mainUI() {
         //Creating the main window of the application

@@ -8,7 +8,7 @@ public class Profile {
     private String name = "";
     private int hDice = 6;
     private String startEquipement = "Nothing";
-    private Vector<Integer> path = new Vector<Integer>();
+    private Vector<Path> paths = new Vector<Path>();
     private JSONArray path_json;
 
     public Profile() {
@@ -46,19 +46,16 @@ public class Profile {
         this.startEquipement = startEquipement;
     }
 
-    public Vector<Integer> getPath() {
-        return path;
+    public Vector<Path> getPaths() {
+        return paths;
+    }
+
+    public void addPath (Path path) {
+        this.paths.add(path);
     }
 
     public JSONArray getPath_json() {
         return path_json;
-    }
-
-    public void setPath(String json_path) {
-        this.path_json = new JSONArray(json_path);
-        for (int i = 0; i < this.path_json.length(); i++) {
-            this.path.add(this.path_json.getInt(i));
-        }
     }
 
     public int calculateHealth (int level) {
