@@ -65,4 +65,9 @@ public class Path {
     public void setPowers(Vector<String> powers) {
         this.powers = powers;
     }
+
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

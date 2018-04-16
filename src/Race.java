@@ -55,4 +55,8 @@ public class Race {
         this.capacityName = capacityName;
     }
 
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

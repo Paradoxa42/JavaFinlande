@@ -62,5 +62,8 @@ public class Profile {
         return level * this.hDice;
     }
 
-
+    @Override
+    public String toString() {
+        return this.getName();
+    }
 }

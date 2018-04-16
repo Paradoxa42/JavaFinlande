@@ -1,12 +1,12 @@
 import org.json.JSONObject;
 
 public class caracSet {
-    private int str = 0;
-    private int dex = 0;
-    private int con = 0;
-    private int intel = 0;
-    private int wis = 0;
-    private int cha = 0;
+    private int str = 10;
+    private int dex = 10;
+    private int con = 10;
+    private int intel = 10;
+    private int wis = 10;
+    private int cha = 10;
 
     public caracSet(String jsonCarac) {
         JSONObject obj = new JSONObject(jsonCarac);

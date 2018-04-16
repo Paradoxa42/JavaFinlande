@@ -4,16 +4,16 @@ public class Character {
 
     private int id = 0;
     private caracSet set;
-    private String name = "";
-    private Race race;
-    private Profile profile;
+    private String name = "default connard";
+    private Race race = null;
+    private Profile profile = null;
     private int health = 0;
     private int level = 0;
     private String equipement = "";
     private Vector<Path> paths = new Vector<Path>();
 
     public Character() {
-
+        this.set = new caracSet(10,10,10,10,10,10);
     }
 
     public Character(int _str, int _dex, int _con, int _intel, int _wis, int _cha, String _name, Race _race, Profile _profile, int _level, String _equipement) {
@@ -104,5 +104,10 @@ public class Character {
 
     public void setPaths(Vector<Path> paths) {
         this.paths = paths;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

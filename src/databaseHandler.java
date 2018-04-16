@@ -1,6 +1,5 @@
-    import org.json.JSONArray;
-
-    import java.sql.*;
+import org.json.JSONArray;
+import java.sql.*;
 import java.util.Vector;
 
 public class databaseHandler {
@@ -130,7 +129,10 @@ public class databaseHandler {
                 new_profile.setName(query_res.getString("name"));
                 new_profile.sethDice(query_res.getInt("hDice"));
                 new_profile.setStartEquipement(query_res.getString("startEquipement"));
-                new_profile.setPath(query_res.getString("paths"));
+                JSONArray path_json = new JSONArray(query_res.getString("paths"));
+                for (int i = 0; i < path_json.length(); i++) {
+                    new_profile.addPath(this.getPath(path_json.getInt(i)));
+                }
                 new_profiles.add(new_profile);
             }
             return new_profiles;
@@ -183,9 +185,11 @@ public class databaseHandler {
             Statement query_stmt = this.connection.createStatement();
             String query_str = "SELECT id FROM " + EntityName + " WHERE name LIKE '" + name + "'";
             ResultSet query_res = query_stmt.executeQuery(query_str);
+            int ret = -1;
             if (query_res.next()) {
-                return query_res.getInt("id");
+                ret = query_res.getInt("id");
             }
+            return ret;
         } catch (SQLException ex) {
             System.out.println("Error SQL : " + ex.getMessage());
             return -1;
