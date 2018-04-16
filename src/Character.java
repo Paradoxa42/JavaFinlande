@@ -4,7 +4,7 @@ public class Character {
 
     private int id = 0;
     private caracSet set;
-    private String name = "default connard";
+    private String name = "default";
     private Race race = null;
     private Profile profile = null;
     private int health = 0;
@@ -92,6 +92,7 @@ public class Character {
 
     public void setRace(Race race) {
         this.race = race;
+        this.set.add(this.race.getSet());
     }
 
     public caracSet getSet() {

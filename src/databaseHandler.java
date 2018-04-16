@@ -233,7 +233,7 @@ public class databaseHandler {
             this.postCharacterPaths(character.getId(), character.getPaths());
             return character;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL POST CHARACTER : " + ex.getMessage());
             return character;
         }
     }
@@ -246,7 +246,7 @@ public class databaseHandler {
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL PUT CHARACTER : " + ex.getMessage());
             return false;
         }
     }
@@ -259,7 +259,7 @@ public class databaseHandler {
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL DELETE CHARACTER : " + ex.getMessage());
             return false;
         }
     }
@@ -273,6 +273,7 @@ public class databaseHandler {
             Path path = new Path();
             while (query_res.next()) {
                 path.setId(query_res.getInt("id"));
+                path.setName(query_res.getString("name"));
                 path.setLevel(0);
                 Vector<String> powers = new Vector<String>();
                 powers.add(query_res.getString("powerOne"));
@@ -282,9 +283,10 @@ public class databaseHandler {
                 powers.add(query_res.getString("powerFive"));
                 path.setPowers(powers);
             }
+            System.out.println(path);
             return path;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET PATH : " + ex.getMessage());
             return null;
         }
     }
@@ -302,7 +304,7 @@ public class databaseHandler {
             }
             return paths;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET CHARACTER PATH: " + ex.getMessage());
             return null;
         }
     }
@@ -315,7 +317,7 @@ public class databaseHandler {
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL POST PATH : " + ex.getMessage());
             return false;
         }
     }
@@ -328,7 +330,7 @@ public class databaseHandler {
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL POST CHARACTER PATH: " + ex.getMessage());
             return false;
         }
     }
@@ -340,7 +342,7 @@ public class databaseHandler {
             String query_str = "UPDATE path_character SET level = '" + level + "' WHERE idCharacter = " + idCharacter + " AND idPath = " + idPath;
             query_stmt.execute(query_str);
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL PUT CHARACTER PATH LEVEL: " + ex.getMessage());
         }
     }
 

@@ -29,7 +29,8 @@ public class caracSet {
 
     @Override
     public String toString() {
-        return "Charac set : \n str : " + this.str + "\n dex : " + this.dex + "\n con : " + this.con + "\n intel : " + this.intel + "\n wis : " + this.wis + "\n cha : " + this.cha;
+        //return "Charac set : \n str : " + this.str + "\n dex : " + this.dex + "\n con : " + this.con + "\n intel : " + this.intel + "\n wis : " + this.wis + "\n cha : " + this.cha;
+        return toJSON();
     }
 
     public String toJSON() {
@@ -44,6 +45,7 @@ public class caracSet {
     }
 
     public caracSet add(caracSet confront) {
+        System.out.println(confront);
         return new caracSet(
                 this.str + confront.getStr(),
                 this.dex + confront.getDex(),
