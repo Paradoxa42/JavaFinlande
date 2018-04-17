@@ -184,6 +184,8 @@ public class mainUI extends  JFrame{
         this.PathSelectOne.removeAllItems();
         this.PathSelectTwo.removeAllItems();
         if (this.characters.get(index).getRace() == null) {
+            this.PathSelectOne.setEnabled(true);
+            this.PathSelectTwo.setEnabled(true);
             this.RaceSelect.setEnabled(true);
             for (int i = 0; i < this.races.size(); i++) {
                 this.RaceSelect.addItem(this.races.get(i));
@@ -191,6 +193,8 @@ public class mainUI extends  JFrame{
         }
         else {
             this.RaceSelect.setEnabled(false);
+            this.PathSelectOne.setEnabled(false);
+            this.PathSelectTwo.setEnabled(false);
             this.RaceSelect.addItem(this.characters.get(index).getRace());
         }
         if (this.characters.get(index).getProfile() == null) {
