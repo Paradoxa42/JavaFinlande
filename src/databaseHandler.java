@@ -184,7 +184,7 @@ public class databaseHandler {
     public int getEntityIDByName(String name, String EntityName) {
         try {
             Statement query_stmt = this.connection.createStatement();
-            String query_str = "SELECT id FROM " + EntityName + " WHERE name LIKE " + name;
+            String query_str = "SELECT id FROM " + EntityName + " WHERE name LIKE '" + name + "'";
             ResultSet query_res = query_stmt.executeQuery(query_str);
             int ret = -1;
             if (query_res.next()) {
