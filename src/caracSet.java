@@ -45,7 +45,6 @@ public class caracSet {
     }
 
     public caracSet add(caracSet confront) {
-        System.out.println(confront);
         return new caracSet(
                 this.str + confront.getStr(),
                 this.dex + confront.getDex(),

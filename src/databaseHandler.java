@@ -167,6 +167,7 @@ public class databaseHandler {
                 new_character.setName(query_res.getString("name"));
                 new_character.setHealth(query_res.getInt("health"));
                 new_character.setLevel(query_res.getInt("level"));
+                new_character.setSet(new caracSet(query_res.getString("carac")));
                 new_character.setRace(this.getRace(query_res.getInt("race")));
                 new_character.setProfile(this.getProfile(query_res.getInt("profile")));
                 new_character.setEquipement(query_res.getString("equipement"));
@@ -210,6 +211,7 @@ public class databaseHandler {
                 new_character.setName(query_res.getString("name"));
                 new_character.setHealth(query_res.getInt("health"));
                 new_character.setLevel(query_res.getInt("level"));
+                new_character.setSet(new caracSet(query_res.getString("carac")));
                 new_character.setRace(this.getRace(query_res.getInt("race")));
                 new_character.setProfile(this.getProfile(query_res.getInt("profile")));
                 new_character.setEquipement(query_res.getString("equipement"));
@@ -242,7 +244,8 @@ public class databaseHandler {
     public boolean putCharacter(Character character) {
         try {
             Statement query_stmt = this.connection.createStatement();
-            String query_str = "UPDATE cooCharacter SET name = " + character.getName() + ", carac = " + character.getSet().toString() + ", race = " + character.getRace().getId() + ", profile = " + character.getProfile().getId() + ", health = " + character.getHealth() + ", level = " + character.getLevel() + ", equipement = " + character.getEquipement() + " WHERE id = " + character.getId();
+            String query_str = "UPDATE cooCharacter SET name = '" + character.getName() + "', carac = '" + character.getSet().toString() + "', race = " + character.getRace().getId() + ", profile = " + character.getProfile().getId() + " WHERE id = " + character.getId();
+            System.out.println(query_str);
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
@@ -283,7 +286,6 @@ public class databaseHandler {
                 powers.add(query_res.getString("powerFive"));
                 path.setPowers(powers);
             }
-            System.out.println(path);
             return path;
         } catch (SQLException ex) {
             System.out.println("Error SQL GET PATH : " + ex.getMessage());

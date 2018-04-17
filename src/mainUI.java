@@ -64,8 +64,8 @@ public class mainUI extends  JFrame{
         }
 
         if (characters.size() > 0) {
-            character_index = characters.size() - 1;
-            bindCharacterToUI(character_index);
+            character_index = 0;
+            bindCharacterToUI(0);
         }
 
         //Add Character to the list
@@ -83,6 +83,9 @@ public class mainUI extends  JFrame{
         RemoveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (characters.size() == 0) {
+                    return;
+                }
                 if (bdd.deleteCharacter(characters.get(character_index))) {
                     CharacterList.removeItem(characters.get(character_index));
                     characters.remove(characters.get(character_index));
@@ -121,7 +124,6 @@ public class mainUI extends  JFrame{
         });
 
         //Associate the Paths to the pathSelects
-
         ProfileSelect.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -156,7 +158,11 @@ public class mainUI extends  JFrame{
         CharacterList.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                if (characters.indexOf((Character) e.getItem()) == -1) {
+                    return;
+                }
                 character_index = characters.indexOf((Character) e.getItem());
+                System.out.println(character_index);
                 bindCharacterToUI(character_index);
             }
         });

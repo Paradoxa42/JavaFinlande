@@ -9,7 +9,7 @@ public class Character {
     private Profile profile = null;
     private int health = 0;
     private int level = 0;
-    private String equipement = "";
+    private String equipement = ".";
     private Vector<Path> paths = new Vector<Path>();
 
     public Character() {
