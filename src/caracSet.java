@@ -80,26 +80,44 @@ public class caracSet {
     }
 
     public void setCha(int cha) {
-        this.cha = cha;
+        if (cha < 1)
+            this.cha = 1;
+        else
+            this.cha = cha;
     }
 
     public void setCon(int con) {
-        this.con = con;
+        if (con < 1)
+            this.con = 1;
+        else
+            this.con = con;
     }
 
     public void setDex(int dex) {
-        this.dex = dex;
+        if (dex < 1)
+            this.dex = 1;
+        else
+            this.dex = dex;
     }
 
     public void setIntel(int intel) {
-        this.intel = intel;
+        if (intel < 1)
+            this.intel = 1;
+        else
+            this.intel = intel;
     }
 
     public void setStr(int str) {
-        this.str = str;
+        if (str < 1)
+            this.str = 1;
+        else
+            this.str = str;
     }
 
     public void setWis(int wis) {
-        this.wis = wis;
+        if (wis < 1)
+            this.wis = 1;
+        else
+            this.wis = wis;
     }
 }
