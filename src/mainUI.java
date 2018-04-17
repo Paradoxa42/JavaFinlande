@@ -65,6 +65,7 @@ public class mainUI extends  JFrame{
 
         if (characters.size() > 0) {
             character_index = characters.size() - 1;
+            bindCharacterToUI(character_index);
         }
 
         //Add Character to the list
@@ -83,7 +84,15 @@ public class mainUI extends  JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (bdd.deleteCharacter(characters.get(character_index))) {
+                    CharacterList.removeItem(characters.get(character_index));
                     characters.remove(characters.get(character_index));
+                    if (characters.size() == 0) {
+                        setDefaultUI();
+                    }
+                    else {
+                        character_index = 0;
+                        bindCharacterToUI(character_index);
+                    }
                 }
             }
         });
@@ -136,10 +145,19 @@ public class mainUI extends  JFrame{
                 pathOneSelected = (Path) e.getItem();
             }
         });
+
         PathSelectTwo.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 pathTwoSelected = (Path) e.getItem();
+            }
+        });
+
+        CharacterList.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                character_index = characters.indexOf((Character) e.getItem());
+                bindCharacterToUI(character_index);
             }
         });
     }
@@ -148,15 +166,17 @@ public class mainUI extends  JFrame{
     }
 
     private void bindCharacterToUI(int index) {
-        System.out.println(this.characters.get(index).getName());
         this.nameTextField.setText(this.characters.get(index).getName());
-        System.out.println(this.characters.get(index).getSet().toString());
         this.Strspinner.setValue(this.characters.get(index).getSet().getStr());
         this.Dexspinner.setValue(this.characters.get(index).getSet().getDex());
         this.Intelspinner.setValue(this.characters.get(index).getSet().getIntel());
         this.Conspinner.setValue(this.characters.get(index).getSet().getCon());
         this.Wisspinner.setValue(this.characters.get(index).getSet().getWis());
         this.Chaspinner.setValue(this.characters.get(index).getSet().getCha());
+        this.RaceSelect.removeAllItems();
+        this.ProfileSelect.removeAllItems();
+        this.PathSelectOne.removeAllItems();
+        this.PathSelectTwo.removeAllItems();
         if (this.characters.get(index).getRace() == null) {
             this.RaceSelect.setEnabled(true);
             for (int i = 0; i < this.races.size(); i++) {
@@ -177,6 +197,21 @@ public class mainUI extends  JFrame{
             this.ProfileSelect.setEnabled(false);
             this.ProfileSelect.addItem(this.characters.get(index).getProfile());
         }
+        this.refresh();
+    }
+
+    private void setDefaultUI() {
+        this.nameTextField.setText("");
+        this.Strspinner.setValue(10);
+        this.Dexspinner.setValue(10);
+        this.Intelspinner.setValue(10);
+        this.Conspinner.setValue(10);
+        this.Wisspinner.setValue(10);
+        this.Chaspinner.setValue(10);
+        this.RaceSelect.removeAllItems();
+        this.ProfileSelect.removeAllItems();
+        this.PathSelectOne.removeAllItems();
+        this.PathSelectTwo.removeAllItems();
         this.refresh();
     }
 

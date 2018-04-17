@@ -52,7 +52,7 @@ public class databaseHandler {
                 }
                 return new_race;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET RACE BY ID : " + ex.getMessage());
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class databaseHandler {
             }
             return new_race;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET RACES : " + ex.getMessage());
             return null;
         }
     }
@@ -87,7 +87,7 @@ public class databaseHandler {
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL POST RACE : " + ex.getMessage());
             return false;
         }
     }
@@ -111,7 +111,7 @@ public class databaseHandler {
             }
             return new_profile;
         } catch(SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET PROFILE : " + ex.getMessage());
             return null;
         }
     }
@@ -137,7 +137,7 @@ public class databaseHandler {
             }
             return new_profiles;
         } catch(SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET PROFILES : " + ex.getMessage());
             return null;
         }
     }
@@ -150,7 +150,7 @@ public class databaseHandler {
             query_stmt.execute(query_str);
             return true;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL POST PROFILE : " + ex.getMessage());
             return false;
         }
     }
@@ -174,7 +174,7 @@ public class databaseHandler {
             }
             return new_character;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET CHARACTER BY ID : " + ex.getMessage());
             return null;
         }
     }
@@ -183,7 +183,7 @@ public class databaseHandler {
     public int getEntityIDByName(String name, String EntityName) {
         try {
             Statement query_stmt = this.connection.createStatement();
-            String query_str = "SELECT id FROM " + EntityName + " WHERE name LIKE '" + name + "'";
+            String query_str = "SELECT id FROM " + EntityName + " WHERE name LIKE " + name;
             ResultSet query_res = query_stmt.executeQuery(query_str);
             int ret = -1;
             if (query_res.next()) {
@@ -191,7 +191,7 @@ public class databaseHandler {
             }
             return ret;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET ENTITY BY NAME: " + ex.getMessage());
             return -1;
         }
     }
@@ -218,7 +218,7 @@ public class databaseHandler {
             }
             return new_characters;
         } catch (SQLException ex) {
-            System.out.println("Error SQL : " + ex.getMessage());
+            System.out.println("Error SQL GET CHARACTERS : " + ex.getMessage());
             return null;
         }
     }
@@ -229,7 +229,7 @@ public class databaseHandler {
             Statement query_stmt = this.connection.createStatement();
             String query_str = "INSERT INTO cooCharacter (id, name, carac, race, profile, health, level, equipement) VALUES (NULL, '" + character.getName() + "', '" + character.getSet().toString() + "', '" + character.getRace().getId() + "', '" + character.getProfile().getId() + "', '" + character.getHealth() + "', '" + character.getLevel() + "', '" + character.getEquipement() + "');";
             query_stmt.execute(query_str);
-            character.setId(this.getEntityIDByName(character.getName(), "character"));
+            character.setId(this.getEntityIDByName(character.getName(), "cooCharacter"));
             this.postCharacterPaths(character.getId(), character.getPaths());
             return character;
         } catch (SQLException ex) {
