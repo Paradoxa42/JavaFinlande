@@ -54,10 +54,12 @@ public class mainUI extends  JFrame{
 
         //End the process if we close the window
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Actually display the window
-        this.setVisible(true);
+
+        //get all races from the database
         this.races = bdd.getRaces();
+        //get all Profiles from the database
         this.profiles = bdd.getProfiles();
+        //get All the characters from the database
         this.characters = bdd.getCharacters();
         for (int i = 0; i < this.characters.size(); i++) {
             this.CharacterList.addItem(this.characters.get(i));
@@ -72,6 +74,7 @@ public class mainUI extends  JFrame{
         AddCharacterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LabelMessage.setText("");
                 Character new_char = new Character();
                 characters.addElement(new_char);
                 bindCharacterToUI(characters.size() - 1);
@@ -83,6 +86,7 @@ public class mainUI extends  JFrame{
         RemoveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LabelMessage.setText("");
                 if (characters.size() == 0) {
                     return;
                 }
@@ -115,6 +119,8 @@ public class mainUI extends  JFrame{
                     }
                 } catch (SamePathException ex) {
                     LabelMessage.setText("You can't choose two time the same path");
+                } catch (CaracUnderOneException ex) {
+                    LabelMessage.setText("Caracs cannot be bellow one");
                 }
             }
         });
@@ -123,6 +129,7 @@ public class mainUI extends  JFrame{
         ProfileSelect.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                LabelMessage.setText("");
                 Profile tmp = (Profile)e.getItem();
                 PathSelectOne.removeAllItems();
                 pathOneSelected = tmp.getPaths().get(0);
@@ -137,6 +144,8 @@ public class mainUI extends  JFrame{
 
             }
         });
+
+        //Select the first Path for the character
         PathSelectOne.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -145,6 +154,7 @@ public class mainUI extends  JFrame{
             }
         });
 
+        //Select the second Path for the character
         PathSelectTwo.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -153,6 +163,7 @@ public class mainUI extends  JFrame{
             }
         });
 
+        //Select a character to display
         CharacterList.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -164,13 +175,17 @@ public class mainUI extends  JFrame{
                 bindCharacterToUI(character_index);
             }
         });
+        //Actually display the window
+        this.setVisible(true);
     }
 
     private void createUIComponents() {
     }
 
+    //Set all stat of the character to the UI fields
     private void bindCharacterToUI(int index) {
         LabelMessage.setText("");
+        //The caracteristics
         this.nameTextField.setText(this.characters.get(index).getName());
         this.Strspinner.setValue(this.characters.get(index).getSet().getStr());
         this.Dexspinner.setValue(this.characters.get(index).getSet().getDex());
@@ -178,11 +193,13 @@ public class mainUI extends  JFrame{
         this.Conspinner.setValue(this.characters.get(index).getSet().getCon());
         this.Wisspinner.setValue(this.characters.get(index).getSet().getWis());
         this.Chaspinner.setValue(this.characters.get(index).getSet().getCha());
+        //Empty the select bx
         this.RaceSelect.removeAllItems();
         this.ProfileSelect.removeAllItems();
         this.PathSelectOne.removeAllItems();
         this.PathSelectTwo.removeAllItems();
         if (this.characters.get(index).getRace() == null) {
+            //If the character is not yet in the database we can select the races, profiles and path
             this.PathSelectOne.setEnabled(true);
             this.PathSelectTwo.setEnabled(true);
             this.RaceSelect.setEnabled(true);
@@ -206,9 +223,11 @@ public class mainUI extends  JFrame{
             this.ProfileSelect.setEnabled(false);
             this.ProfileSelect.addItem(this.characters.get(index).getProfile());
         }
+        //We refresh the screen to display all the changes
         this.refresh();
     }
 
+    //If the list is empty we set the UI fields to default values
     private void setDefaultUI() {
         this.nameTextField.setText("");
         this.Strspinner.setValue(10);
@@ -224,7 +243,8 @@ public class mainUI extends  JFrame{
         this.refresh();
     }
 
-    private boolean buildCharacter() throws SamePathException {
+    //Update the character displayed on the screen attributs, return true if the character is not in the database throw exception if the Path selected are the same
+    private boolean buildCharacter() throws SamePathException, CaracUnderOneException {
         if (pathOneSelected.getId() == pathTwoSelected.getId()) {
             throw new SamePathException();
         }
@@ -245,11 +265,13 @@ public class mainUI extends  JFrame{
         return created;
     }
 
+    //Refresh the screen fields with all the changes
     private void refresh() {
         this.revalidate();
         this.repaint();
     }
 
+    //Set the main context to the screen and pack it
     public void setListCharacterContext() {
         this.setContentPane(mainPanel);
         this.pack();

@@ -2,6 +2,7 @@ import org.json.JSONArray;
 
 import java.util.Vector;
 
+//The Profile of a character
 public class Profile {
 
     private int id = 0;
@@ -11,9 +12,11 @@ public class Profile {
     private Vector<Path> paths = new Vector<Path>();
     private JSONArray path_json;
 
+    //Default constructor
     public Profile() {
     }
 
+    //Getter and Setter ID
     public void setId(int id) {
         this.id = id;
     }
@@ -22,6 +25,7 @@ public class Profile {
         return id;
     }
 
+    //Getter and Setter name
     public void setName(String name) {
         this.name = name;
     }
@@ -30,6 +34,7 @@ public class Profile {
         return name;
     }
 
+    //Getter and Setter hDice
     public int gethDice() {
         return hDice;
     }
@@ -38,6 +43,7 @@ public class Profile {
         this.hDice = hDice;
     }
 
+    //Getter and Setter Equipement
     public String getStartEquipement() {
         return startEquipement;
     }
@@ -46,6 +52,7 @@ public class Profile {
         this.startEquipement = startEquipement;
     }
 
+    //Getter and Setter Path
     public Vector<Path> getPaths() {
         return paths;
     }
@@ -54,14 +61,17 @@ public class Profile {
         this.paths.add(path);
     }
 
+    //Get a JSON with the ID of all the path
     public JSONArray getPath_json() {
         return path_json;
     }
 
+    //Calculate the Health of the character based on it's level and the hDice of the Profile
     public int calculateHealth (int level) {
         return level * this.hDice;
     }
 
+    //Return the name of the Profile
     @Override
     public String toString() {
         return this.getName();

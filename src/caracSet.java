@@ -1,5 +1,8 @@
 import org.json.JSONObject;
 
+/*
+* Class of all the caracteristics of a race or a character
+* */
 public class caracSet {
     private int str = 10;
     private int dex = 10;
@@ -8,6 +11,7 @@ public class caracSet {
     private int wis = 10;
     private int cha = 10;
 
+    //Constructor with a JSON set with all the caracs
     public caracSet(String jsonCarac) {
         JSONObject obj = new JSONObject(jsonCarac);
         this.str = obj.getInt("str");
@@ -18,6 +22,7 @@ public class caracSet {
         this.cha = obj.getInt("cha");
     }
 
+    //Constructor with all the caracs provided
     public caracSet(int _str, int _dex, int _con, int _intel, int _wis, int _cha) {
         this.str = _str;
         this.dex = _dex;
@@ -27,12 +32,13 @@ public class caracSet {
         this.cha = _cha;
     }
 
+    //Return a JSON with all the caracs in it
     @Override
     public String toString() {
-        //return "Charac set : \n str : " + this.str + "\n dex : " + this.dex + "\n con : " + this.con + "\n intel : " + this.intel + "\n wis : " + this.wis + "\n cha : " + this.cha;
         return toJSON();
     }
 
+    //Return a JSON with all the caracs in it
     public String toJSON() {
         JSONObject obj = new JSONObject("{}");
         obj.put("str", new Integer(this.str));
@@ -44,6 +50,7 @@ public class caracSet {
         return obj.toString();
     }
 
+    //Add two carac set because the java can't handle +operator overload
     public caracSet add(caracSet confront) {
         return new caracSet(
                 this.str + confront.getStr(),
@@ -55,6 +62,7 @@ public class caracSet {
         );
     }
 
+    //Getters
     public int getCha() {
         return cha;
     }
@@ -79,44 +87,45 @@ public class caracSet {
         return wis;
     }
 
-    public void setCha(int cha) {
+    //Setters, a carac can't be bellow zero otherwise it will throw CaracUnderZeroException
+    public void setCha(int cha) throws CaracUnderOneException {
         if (cha < 1)
-            this.cha = 1;
+            throw new CaracUnderOneException();
         else
             this.cha = cha;
     }
 
-    public void setCon(int con) {
+    public void setCon(int con) throws CaracUnderOneException  {
         if (con < 1)
-            this.con = 1;
+            throw new CaracUnderOneException();
         else
             this.con = con;
     }
 
-    public void setDex(int dex) {
+    public void setDex(int dex) throws CaracUnderOneException  {
         if (dex < 1)
-            this.dex = 1;
+            throw new CaracUnderOneException();
         else
             this.dex = dex;
     }
 
-    public void setIntel(int intel) {
+    public void setIntel(int intel) throws CaracUnderOneException  {
         if (intel < 1)
-            this.intel = 1;
+            throw new CaracUnderOneException();
         else
             this.intel = intel;
     }
 
-    public void setStr(int str) {
+    public void setStr(int str) throws CaracUnderOneException  {
         if (str < 1)
-            this.str = 1;
+            throw new CaracUnderOneException();
         else
             this.str = str;
     }
 
-    public void setWis(int wis) {
+    public void setWis(int wis) throws CaracUnderOneException  {
         if (wis < 1)
-            this.wis = 1;
+            throw new CaracUnderOneException();
         else
             this.wis = wis;
     }

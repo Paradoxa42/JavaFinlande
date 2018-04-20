@@ -2,9 +2,11 @@ import org.json.JSONArray;
 import java.sql.*;
 import java.util.Vector;
 
+//Database Manager Class
 public class databaseHandler {
     private Connection connection;
 
+    //Connect the software to the database
     public databaseHandler() {
         String className = "com.mysql.jdbc.Driver";
         try {
@@ -29,6 +31,7 @@ public class databaseHandler {
         }
     }
 
+    //When destroyed the database disconnect
     public void finalize() {
         try {
             this.connection.close();
@@ -293,6 +296,7 @@ public class databaseHandler {
         }
     }
 
+    //Get Paths of a Character
     public Vector<Path> getCharacterPath(int id) {
         try {
             Statement query_stmt = this.connection.createStatement();

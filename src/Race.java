@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+//The Race of a character
 public class Race {
     private int id = 0;
     private String name = new String();
@@ -7,10 +8,12 @@ public class Race {
     private String capacityName = new String();
     private String capacity = new String();
 
+    //Default constructor
     public Race() {
 
     }
 
+    //Getter and setter of ID
     public int getId() {
         return id;
     }
@@ -19,6 +22,7 @@ public class Race {
         this.id = id;
     }
 
+    //Getter and setter of Name
     public String getName() {
         return name;
     }
@@ -27,6 +31,7 @@ public class Race {
         this.name = name;
     }
 
+    //Getter and setter of the set of bonus and malus on caracs. The set can be set with a caracSet and a JSON
     public void setSet(caracSet set) {
         this.set = set;
     }
@@ -43,10 +48,12 @@ public class Race {
         return capacity;
     }
 
+    //Getter and setter of the discription of the Capacity
     public void setCapacity(String capacity) {
         this.capacity = capacity;
     }
 
+    //Getter and setter of Capacity name
     public String getCapacityName() {
         return capacityName;
     }
@@ -55,6 +62,7 @@ public class Race {
         this.capacityName = capacityName;
     }
 
+    //Return the name of the Race
     @Override
     public String toString() {
         return this.getName();
