@@ -21,7 +21,6 @@ public class mainUI extends  JFrame{
     private JSpinner Wisspinner;
     private JSpinner Chaspinner;
     private JButton createCharacterButton;
-    private JButton MakeSheet;
     private JComboBox CharacterList;
     private JComboBox PathSelectOne;
     private JComboBox PathSelectTwo;
@@ -115,14 +114,6 @@ public class mainUI extends  JFrame{
             }
         });
 
-        //Download the character sheet
-        MakeSheet.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
         //Associate the Paths to the pathSelects
         ProfileSelect.addItemListener(new ItemListener() {
             @Override
@@ -130,11 +121,11 @@ public class mainUI extends  JFrame{
                 Profile tmp = (Profile)e.getItem();
                 PathSelectOne.removeAllItems();
                 pathOneSelected = tmp.getPaths().get(0);
+                pathTwoSelected = tmp.getPaths().get(1);
                 for (int i = 0; i < tmp.getPaths().size(); i++) {
                     PathSelectOne.addItem(tmp.getPaths().get(i));
                 }
                 PathSelectTwo.removeAllItems();
-                pathTwoSelected = tmp.getPaths().get(1);
                 for (int i = 1; i < tmp.getPaths().size(); i++) {
                     PathSelectTwo.addItem(tmp.getPaths().get(i));
                 }
