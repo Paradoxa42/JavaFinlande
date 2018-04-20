@@ -25,6 +25,7 @@ public class mainUI extends  JFrame{
     private JComboBox PathSelectOne;
     private JComboBox PathSelectTwo;
     private JButton RemoveButton;
+    private JLabel LabelMessage;
 
     //Characters
     private Vector<Character> characters = new Vector<>();
@@ -103,13 +104,17 @@ public class mainUI extends  JFrame{
         createCharacterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean tmp = buildCharacter();
-                if (tmp) {
-                    bdd.postCharacter(characters.get(character_index));
-                    CharacterList.addItem(characters.get(character_index));
-                }
-                else {
-                    bdd.putCharacter(characters.get(character_index));
+                try {
+                    LabelMessage.setText("");
+                    boolean tmp = buildCharacter();
+                    if (tmp) {
+                        bdd.postCharacter(characters.get(character_index));
+                        CharacterList.addItem(characters.get(character_index));
+                    } else {
+                        bdd.putCharacter(characters.get(character_index));
+                    }
+                } catch (SamePathException ex) {
+                    LabelMessage.setText("You can't choose two time the same path");
                 }
             }
         });
@@ -135,6 +140,7 @@ public class mainUI extends  JFrame{
         PathSelectOne.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                LabelMessage.setText("");
                 pathOneSelected = (Path) e.getItem();
             }
         });
@@ -142,6 +148,7 @@ public class mainUI extends  JFrame{
         PathSelectTwo.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
+                LabelMessage.setText("");
                 pathTwoSelected = (Path) e.getItem();
             }
         });
@@ -163,6 +170,7 @@ public class mainUI extends  JFrame{
     }
 
     private void bindCharacterToUI(int index) {
+        LabelMessage.setText("");
         this.nameTextField.setText(this.characters.get(index).getName());
         this.Strspinner.setValue(this.characters.get(index).getSet().getStr());
         this.Dexspinner.setValue(this.characters.get(index).getSet().getDex());
@@ -216,7 +224,10 @@ public class mainUI extends  JFrame{
         this.refresh();
     }
 
-    private boolean buildCharacter() {
+    private boolean buildCharacter() throws SamePathException {
+        if (pathOneSelected.getId() == pathTwoSelected.getId()) {
+            throw new SamePathException();
+        }
         boolean created = this.characters.get(character_index).getRace() == null;
         this.characters.get(character_index).setName(this.nameTextField.getText());
         this.characters.get(character_index).setProfile((Profile) this.ProfileSelect.getSelectedItem());
